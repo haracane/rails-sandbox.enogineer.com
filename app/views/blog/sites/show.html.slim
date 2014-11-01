@@ -1,0 +1,20 @@
+- @site = Blog::SitePresenter.new(@site, self)
+p#notice = notice
+
+p
+  strong Title:
+  = @site.title
+p
+  strong Description:
+  = @site.description
+p
+  strong Updated at:
+  = @site.updated_at
+
+p
+  strong Stats:
+  = @site_stats
+
+= link_to 'Edit', edit_blog_site_path(@site.object)
+'|
+= link_to 'Back', blog_sites_path

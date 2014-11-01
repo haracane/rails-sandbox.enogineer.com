@@ -1,0 +1,15 @@
+= form_for @site_form, url: polymorphic_path(@site_form.site) do |f|
+  - if @site_form.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@site_form.errors.count, "error")} prohibited this blog_site from being saved:"
+      ul
+        - @site_form.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :description
+    = f.text_area :description
+  .actions = f.submit 'Save'

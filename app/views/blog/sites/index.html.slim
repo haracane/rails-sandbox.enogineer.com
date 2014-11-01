@@ -1,0 +1,36 @@
+/ app/views/blog/sites/index.html.slim
+- @body_id = 'blog-sites-index-page'
+
+h1 Listing blog_sites
+
+table
+  thead
+    tr
+      th Title
+      th Description
+      th Redirect To
+      th
+      th
+      th
+
+  tbody
+    - @sites.each do |blog_site|
+      tr.blog-site id="blog-site-#{blog_site.id}" data-id=blog_site.id
+        td = blog_site.title
+        td = blog_site.description
+        td.blog-site-config data-id=(blog_site.config.id if blog_site.config)
+          - show_visible = !!blog_site.config
+          span.blog-site-config-show style=('display: none;' unless show_visible)
+            p.redirect-to-show data-blog-site-id=blog_site.id #{blog_site.config.try(:redirect_to)}
+            button.redirect-to-edit data-blog-site-id=blog_site.id 編集
+          - edit_visible = !blog_site.config
+          span.blog-site-config-edit style=('display: none;' unless edit_visible)
+            input.redirect-to-input value=blog_site.config.try(:redirect_to)
+            button.redirect-to-save data-blog-site-id=blog_site.id 保存
+        td = link_to 'Show', blog_site
+        td = link_to 'Edit', edit_blog_site_path(blog_site)
+        td = link_to 'Destroy', blog_site, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Site', new_blog_site_path
