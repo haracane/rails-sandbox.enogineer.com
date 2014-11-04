@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        blog/site_form:
+          attributes:
+            title:
+              blank: "を入力してください"
+              unsafe: "が安全ではありません"
+    models:
+      blog/site_form: ブログサイト
+    attributes:
+      blog/site_form:
+        title: タイトル
+        description: 説明
