@@ -10,6 +10,8 @@ class Blog::Site < ActiveRecord::Base
 
   before_save Blog::SiteLanguageEstimator.new(:language)
 
+  alias_method :config, :site_config
+
   def rating
     @rating ||= Blog::SiteRating.from_description(description)
   end
