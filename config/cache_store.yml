@@ -1,0 +1,29 @@
+defaults: &defaults
+  - :redis_store
+
+development:
+  - *defaults
+  -
+    :host: '127.0.0.1'
+    :port: 6379
+    :namespace: <%= Rails.application.class.parent_name.downcase %>_<%= Rails.env.to_s.downcase %>
+    :expires_in: <%= 1.day %>
+    :commpress: true
+
+test:
+  - *defaults
+  -
+    :host: '127.0.0.1'
+    :port: 6379
+    :namespace: <%= Rails.application.class.parent_name.downcase %>_<%= Rails.env.to_s.downcase %>
+    :expires_in: <%= 1.day %>
+    :commpress: true
+
+production:
+  - *defaults
+  -
+    :host: '127.0.0.1'
+    :port: 6379
+    :namespace: <%= Rails.application.class.parent_name.downcase %>_<%= Rails.env.to_s.downcase %>
+    :expires_in: <%= 1.day %>
+    :commpress: true

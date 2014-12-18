@@ -1,0 +1,52 @@
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - bundle_bin/*
+    - vendor/**/*
+    - db/schema.rb
+
+LineLength:
+  Max: 120
+
+MethodLength:
+  Max: 15
+
+Documentation:
+  Enabled: false
+
+AsciiComments:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+  #EnforcedStyle: nested/compact
+
+NumericLiterals:
+  MinDigits: 7
+
+StringLiterals:
+  EnforcedStyle: single_quotes
+
+SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SpaceBeforeBlockParameters: true
+
+SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+
+DotPosition:
+  EnforcedStyle: trailing
+
+RaiseArgs:
+  EnforcedStyle: exploded
+
+SignalException:
+  EnforcedStyle: semantic
+
+IndentationConsistency:
+  Enabled: true

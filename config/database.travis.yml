@@ -1,0 +1,9 @@
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username:
+  password:
+  database: rails_sandbox_test
+  local_infile: true

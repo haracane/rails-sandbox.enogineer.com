@@ -1,40 +1,124 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.7'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+gem 'rails', '4.1.8'
 
-# Use jquery as the JavaScript library
+gem 'unicorn', group: :production
+
+gem 'mysql2'
+# gem 'rails4_acts_as_paranoid'
+gem 'foreigner'
+gem 'activerecord-import'
+gem 'state_machine'
+gem 'validate_url'
+gem 'validates_email_format_of'
+gem 'validates_timeliness'
+gem 'virtus'
+gem 'pundit'
+
+#gem 'draper'
+gem 'rails-observers'
+gem 'slim-rails'
+
+gem 'compass-rails'
+gem 'oily_png'
+# gem 'sass-rails', '~> 4.0.3'
+gem 'sassy-buttons'
+gem 'uglifier'
+gem 'coffee-rails'
+gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'jquery-ui-rails'
 gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'jquery-turbolinks'
+gem 'underscore-rails'
+gem 'bxslider-rails'
+gem 'colorbox-rails'
+gem 'chart-js-rails', '= 0.0.6'
+gem 'jbuilder'
+group :doc do
+  gem 'sdoc', require: false
+end
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+gem 'grape'
+gem 'grape-active_model_serializers'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'resque'
+# gem 'resque-web', require: 'resque_web'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'dalli'
+gem 'redis-rails'
+gem 'kaminari'
+gem 'elasticsearch-model' #, git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails' #, git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'meta-tags', require: 'meta_tags'
+gem 'settingslogic'
+gem 'paperclip'
+gem 'rack-mini-profiler'
+gem 'dkim'
+gem 'devise'
+gem 'mechanize'
+gem 'rubyzip'
+gem 'parallel'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+gem 'user_agent_parser'
+gem 'referer-parser'
+gem 'nested_form'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'nokogiri'
+gem 'rmagick'
+gem 'sitemap_generator', '>= 5.0.0'
+gem 'moji'
+gem 'romaji'
+gem 'zen_to_i'
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'ckeditor'
+gem 'htmlentities'
 
+gem 'amoeba'
+
+group :development do
+  gem 'i18n_generators'
+  gem 'awesome_print'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'bullet'
+  gem 'quiet_assets'
+  gem 'rubocop', require: false
+  gem 'foreman'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano3-unicorn'
+  gem 'capistrano-resque', github: 'sshingler/capistrano-resque', require: false
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'simplecov'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-byebug'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'rack_session_access'
+  gem 'shoulda-matchers'
+  gem 'simplecov-rcov'
+  gem 'ci_reporter'
+  gem 'guard-rspec', require: false
+  gem 'guard-spring', require: false
+  gem 'terminal-notifier-guard', require: false
+  gem 'spring-commands-rspec'
+  gem 'timecop'
+end
