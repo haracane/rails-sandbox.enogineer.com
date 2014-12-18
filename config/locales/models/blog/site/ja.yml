@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        blog/site:
+          attributes:
+            title:
+              blank: "を入力してください。"
+            description:
+              not_significant: "はもっと詳しく書いてください。"
+    models:
+      blog/site: ブログサイト
+    attributes:
+      blog/site:
+        id: 管理ID
+        user_id: ユーザID
+        title: タイトル
+        description: 説明
+
+        created_at: 作成日時
+        updated_at: 更新日時
