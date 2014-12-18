@@ -10,6 +10,8 @@ describe Blog::Post, type: :model do
 
   context 'with associations' do
     it { should belong_to(:site) }
+    it { should have_many(:post_tags) }
+    it { should have_many(:tags).through(:post_tags) }
   end
 
   context 'with validations' do
@@ -22,6 +24,12 @@ describe Blog::Post, type: :model do
     it { should ensure_length_of(:title).is_at_most(128) }
 
     it { should safely_validate_uniqueness_of(:permalink) }
+
+    it do
+      should validate_objects_length_of(:post_tags).
+               is_at_most(Blog::Post::MAX_POST_TAGS_LENGTH).
+               with_message("タグは#{Blog::Post::MAX_POST_TAGS_LENGTH}個までしか登録できません")
+    end
   end
 
   context 'with DB' do

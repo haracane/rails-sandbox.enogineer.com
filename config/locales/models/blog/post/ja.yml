@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        blog/post:
+          attributes:
+            post_tags:
+              too_long: 'は%{count}個までしか登録できません'
+    models:
+      blog/post: ブログ記事
+    attributes:
+      blog/post:
+        id: 管理ID
+        post_tags: タグ
+
+        created_at: 作成日時
+        updated_at: 更新日時
