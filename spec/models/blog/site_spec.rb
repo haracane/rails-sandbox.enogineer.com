@@ -5,7 +5,7 @@ describe Blog::Site, type: :model do
 
   context 'with FactoryGirl' do
     it { should create_model }
-    it { should create_model.for(2).times } #uniqueなオブジェクトを生成することを確認
+    it { should create_model.for(2).times }
   end
 
   context 'with associations' do

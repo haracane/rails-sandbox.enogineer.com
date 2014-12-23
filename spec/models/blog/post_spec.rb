@@ -15,7 +15,7 @@ describe Blog::Post, type: :model do
   end
 
   context 'with validations' do
-    it { should validate_presence_of(:site_id) }
+    it { should validate_presence_of(:blog_site_id) }
     it { should validate_presence_of(:permalink) }
     it { should validate_presence_of(:title) }
     it { should validate_presence_of(:content) }
@@ -33,13 +33,13 @@ describe Blog::Post, type: :model do
   end
 
   context 'with DB' do
-    it { should have_not_null_constraint_on(:site_id) }
+    it { should have_not_null_constraint_on(:blog_site_id) }
     it { should have_not_null_constraint_on(:permalink) }
     it { should have_not_null_constraint_on(:title) }
     it { should have_not_null_constraint_on(:content) }
 
     it { should have_unique_constraint_on(:permalink) }
 
-    it { should have_foreign_key_constraint_on(:site_id) }
+    it { should have_foreign_key_constraint_on(:blog_site_id) }
   end
 end
