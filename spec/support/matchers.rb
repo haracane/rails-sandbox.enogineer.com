@@ -14,6 +14,7 @@ RSpec::Matchers.define :create_model do
     name = klass.table_name.singularize
 
     @create_count ||= 1
+    @created_count = 0
 
     before_count = klass.count
 
@@ -23,7 +24,7 @@ RSpec::Matchers.define :create_model do
     @created_count == @create_count
   end
 
-  description { "create #{@created_count} #{'record'.pluralize(@created_count)}" }
+  description { "create #{@create_count} #{'record'.pluralize(@create_count)}" }
   failure_message { "expected to #{description}, but created #{@created_count}" }
 end
 
@@ -182,6 +183,21 @@ RSpec::Matchers.define :validate_objects_length_of do |field|
     self
   end
 
+  def is_equal_to(size)
+    @equal_size = size
+    self
+  end
+
+  def with_association(association)
+    @association_name = association
+    self
+  end
+
+  def with_factory(*args)
+    @factory_args = args
+    self
+  end
+
   def with_message(message)
     @message = message
     self
@@ -189,33 +205,61 @@ RSpec::Matchers.define :validate_objects_length_of do |field|
 
   match do |model|
     model_factory_name = model.class.table_name.singularize
-    association =
-      model.
-      class.
-      reflect_on_all_associations(:has_many).
-      find { |i_association| i_association.name == field }
+    factory_args = @factory_args
+    association_name = @association_name || field
 
-    if association.nil?
-      @failure_appendix = "(#{field.inspect} has-many association does not exist)"
-      return false
+    if factory_args.nil?
+      association =
+        model.
+        class.
+        reflect_on_all_associations(:has_many).
+        find { |i_association| i_association.name == association_name }
+
+      if association.nil?
+        @failure_appendix = "(#{association_name.inspect} has-many association does not exist)"
+        return false
+      end
+
+      factory_args = [association.table_name.singularize]
     end
-
-    field_factory_name = association.table_name.singularize
 
     record = create(model_factory_name)
 
     if @max_size
-      (1..@max_size).each do |i|
-        record.send(field) << build(field_factory_name)
+      ((record.send(association_name).size)..@max_size).each do |size|
         unless record.valid?
-          @failure_appendix = "(invalid with #{i} #{'object'.pluralize(i)})"
+          @failure_appendix = "(invalid with #{size} #{'object'.pluralize(size)})"
           return false
         end
+        record.send(association_name) << build(*factory_args)
       end
 
-      record.send(field) << build(field_factory_name)
       if record.valid?
-        @failure_appendix = "(valid with #{@max_size + 1} #{'object'.pluralize(@max_size + 1)})"
+        size = @max_size + 1
+        @failure_appendix = "(valid with #{size} #{'object'.pluralize(size)})"
+        return false
+      end
+    end
+
+    if @equal_size
+      ((record.send(association_name).size)...@equal_size).each do |size|
+        if record.valid?
+          @failure_appendix = "(valid with #{size} #{'object'.pluralize(size)})"
+          return false
+        end
+        record.send(association_name) << build(*factory_args)
+      end
+
+      unless record.valid?
+        @failure_appendix = "(valid with #{@equal_size} #{'object'.pluralize(@equal_size)})"
+        return false
+      end
+
+      record.send(association_name) << build(*factory_args)
+
+      if record.valid?
+        size = @equal_size + 1
+        @failure_appendix = "(valid with #{size} #{'object'.pluralize(size)})"
         return false
       end
     end
@@ -234,6 +278,9 @@ RSpec::Matchers.define :validate_objects_length_of do |field|
     description_prefix = "validate #{field} has a length of"
     conditions = []
     conditions << "at most #{@max_size}" if @max_size
+    conditions << "equal to #{@equal_size}" if @equal_size
+    conditions << "with association #{@association_name.inspect}" if @association_name
+    conditions << "with FactoryGirl args (#{@factory_args.inspect})" if @factory_args
     conditions << "with message #{@message.inspect}" if @message
     "#{description_prefix} #{conditions.join(', ')}"
   end
